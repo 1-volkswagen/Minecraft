@@ -1,0 +1,102 @@
+ Hex - Minecraft Storage
+ -----------------------
+
+ In case you want to store your private key on an original and creative manner you can follow the underlying guide to set your imagination free.
+
+ For starters you need to have the following at your disposal:
+
+ - Minecraft: Education Edition (or any other will do)
+ - microSD card
+ - Private key in hex format
+
+ Lets showcase this method of storing your private key using a random generated private key:
+
+ WWpoqbfhC8qC1GZpFxEHunk1gaU5yDhZe5qJsttaiJZTXiPKD6mA
+
+ You can get the private key of an addres by using the dumpprivkey command followed by the address in the vcash client:
+
+ http://tinyimg.io/i/hnzxOJ6.png - vcash dumpprivkey
+
+ Now in order to get the hexdump of this private key we are going to use the following small script in powershell:
+
+ $a = "WWpoqbfhC8qC1GZpFxEHunk1gaU5yDhZe5qJsttaiJZTXiPKD6mA";
+ $b = $a.ToCharArray();
+ Foreach ($element in $b) {$c = $c + " " + [System.String]::Format("{0:X}", [System.Convert]::ToUInt32($element))}
+ $c
+
+ 57 57 70 6F 71 62 66 68 43 38 71 43 31 47 5A 70 46 78 45 48 75 6E 6B 31 67 61 55 35 79 44 68 5A 65 35 71 4A 73 74 74 61
+ 69 4A 5A 54 58 69 50 4B 44 36 6D 41
+
+ http://tinyimg.io/i/EaISqUh.png - hexadecimal powershell
+
+ This is where the fun part begins, in order for you to store the hex value of the private key you need to figure out a way to
+ store a hex value onto a minecraft server.
+
+ Hexadecimals are a set of 16 characters that combined together can form a multitude of asscii characters when transformed,
+ 0-9 and a-f are the alphanumeric characters used in hex.
+
+ 0 1 2 3 4 5 6 7 8 9
+ a b c d e f
+
+ To build a string of hex in minecraft all you need is to come up with your own encryption scheme.
+
+ In this example I used a very simple scheme that allows me to explain the principle.
+
+ In reality you can make it as complicated as you want and even hide it from possible treasure hunters.
+
+ http://tinyimg.io/i/QiJt2RU.png - scheme minecraft
+
+ In this example the red stones represent the top row (numbers), the white stones the bottom row (the 6 letters) and the black stone a zero.
+
+ Reading it from left to right, the number of stones present in one column represent their respective value.
+
+ Character one: red stone, four deep:       4
+ Character two: white stone, one deep:      a
+ Character three: red stone, six deep:      6
+ Character four: white stone, four deep:    d
+ Character five: black stone, one deep:     0
+
+ The space in the middle represents a space in the hexadecimal string.
+
+ You can try and decipher the second row of blocks using the same method.
+
+ Transforming the hexadecimal string back to ascii:
+
+ Using a hex to ascii transformation table it is very easy to decipher the hexdecimals back to it's original string.
+
+ Below you will find a table that converts the hex pairs into ascii:
+
+ 0 30 a 61 k 6B u 75 E 45 O 4F Y 59
+ 1 31 b 62 l 6C v 76 F 46 P 50 Z 5A
+ 2 32 c 63 m 6D w 77 G 47 Q 51
+ 3 33 d 64 n 6E x 78 H 48 R 52
+ 4 34 e 65 o 6F y 79 I 49 S 53
+ 5 35 f 66 p 70 z 7A J 4A T 54
+ 6 36 g 67 q 71 A 41 K 4B U 55
+ 7 37 h 68 r 72 B 42 L 4C V 56
+ 8 38 i 69 s 73 C 43 M 4D W 57
+ 9 39 j 6A t 74 D 44 N 4E X 58
+
+ Using a piece of paper and a pen you can easily extract the private key from the encryption scheme, the blocks in minecraft and the hex to ascii conversion table.
+
+ You can later import this private key back into the vcash wallet using the importprivkey command followed by the private key.
+
+ To save the private key onto a minecraft map all you need to do is head over to the settings and hit export.
+
+ http://tinyimg.io/i/1syjl7V.png - export minecraft
+
+ In this example I have saved the minecraft map with the private key into a file called key.mcworld.
+
+ To open the map, all you need to do is open minecraft and press import.
+
+ To save the file and store it offline you need to copy the key.mcworld file onto a microSD card and keep it safe.
+
+ ADVANCED:
+
+ If you really want to be sure no one else other then you has access to the map file you could install the full raspbian image onto a microSD card and run minecraft offline which comes pre-installed.
+
+ Remember to never plug any ethernet cable into the raspberry pi or configure the wifi to keep your cold storage from turning hot.
+
+
+ Source:
+ http://learningpcs.blogspot.com/2009/07/powershell-string-to-hex-or-whatever.html
